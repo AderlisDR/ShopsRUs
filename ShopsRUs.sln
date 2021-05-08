@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopsRUs.API", "ShopsRUs.API\ShopsRUs.API.csproj", "{8F1EA074-2835-4932-A281-619F405222B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopsRUs.API", "ShopsRUs.API\ShopsRUs.API.csproj", "{8F1EA074-2835-4932-A281-619F405222B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boundaries.Persistence", "Boundaries.Persistence\Boundaries.Persistence.csproj", "{8EDC0314-09D5-4BEE-89C9-4411482FA451}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{F616EF87-D45B-4557-890B-89BA086E68D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{8F1EA074-2835-4932-A281-619F405222B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F1EA074-2835-4932-A281-619F405222B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F1EA074-2835-4932-A281-619F405222B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDC0314-09D5-4BEE-89C9-4411482FA451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDC0314-09D5-4BEE-89C9-4411482FA451}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDC0314-09D5-4BEE-89C9-4411482FA451}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDC0314-09D5-4BEE-89C9-4411482FA451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F616EF87-D45B-4557-890B-89BA086E68D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F616EF87-D45B-4557-890B-89BA086E68D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F616EF87-D45B-4557-890B-89BA086E68D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F616EF87-D45B-4557-890B-89BA086E68D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
