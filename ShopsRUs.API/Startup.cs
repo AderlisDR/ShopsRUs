@@ -1,18 +1,17 @@
 using Boundaries.Persistence;
 using Boundaries.Persistence.Contexts;
+using Boundaries.Services.Bill;
+using Boundaries.Services.Client;
+using Boundaries.Services.Discount;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ShopsRUs.API
 {
@@ -44,11 +43,19 @@ namespace ShopsRUs.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(s =>
+                {
+                    s.RegisterValidatorsFromAssemblyContaining<Startup>();
+                    s.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+                });
             services.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
+            services.AddAutoMapper(typeof(Startup));
 
             ConfigureDbContext(services);
             ConfigureSwagger(services);
+            ConfigureCustomServices(services);
+            ConfigureCors(services);
         }
 
         private static void ConfigureDbContext(IServiceCollection services)
@@ -75,6 +82,25 @@ namespace ShopsRUs.API
             });
         }
 
+        private static void ConfigureCustomServices(IServiceCollection services)
+        {
+            services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IDiscountService, DiscountService>();
+            services.AddTransient<IBillService, BillService>();
+        }
+
+        private static void ConfigureCors(IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ShopsRUsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyMethod();
+                });
+            });
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -82,17 +108,27 @@ namespace ShopsRUs.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
+            app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopsRUs API V1"); });
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
             });
+
+            app.UseCors("ShopsRUsPolicy");
         }
     }
 }

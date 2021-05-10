@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boundaries.Persistence", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{F616EF87-D45B-4557-890B-89BA086E68D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boundaries.Services", "Boundaries.Services\Boundaries.Services.csproj", "{B531BC97-6D3C-4298-B998-522F460065ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F616EF87-D45B-4557-890B-89BA086E68D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F616EF87-D45B-4557-890B-89BA086E68D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F616EF87-D45B-4557-890B-89BA086E68D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B531BC97-6D3C-4298-B998-522F460065ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B531BC97-6D3C-4298-B998-522F460065ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B531BC97-6D3C-4298-B998-522F460065ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B531BC97-6D3C-4298-B998-522F460065ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="FluentValidation" Version="10.1.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.14">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -18,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Boundaries.Persistence\Boundaries.Persistence.csproj" />
-    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Boundaries.Services\Boundaries.Services.csproj" />
   </ItemGroup>
 
 

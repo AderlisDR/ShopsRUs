@@ -7,14 +7,14 @@ using System.Collections.Generic;
 namespace Boundaries.Persistence.Builders
 {
     /// <summary>
-    /// 
+    /// Represents an <see cref="EntityTypeBuilder"/> for <see cref="Item"/> entity.
     /// </summary>
     public sealed class ItemEntityBuilder
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of <see cref="UserEntityBuilder"/>.
         /// </summary>
-        /// <param name="entityBuilder"></param>
+        /// <param name="entityBuilder">An instance of <see cref="EntityTypeBuilder{T}"/> where T is <see cref="Item"/>.</param>
         public ItemEntityBuilder(EntityTypeBuilder<Item> entityBuilder)
         {
             // Entity seeds

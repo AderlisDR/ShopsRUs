@@ -6,14 +6,14 @@ using System.Collections.Generic;
 namespace Boundaries.Persistence.Builders
 {
     /// <summary>
-    /// 
+    /// Represents an <see cref="EntityTypeBuilder"/> for <see cref="ItemType"/> entity.
     /// </summary>
     public sealed class ItemTypeEntityBuilder
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of <see cref="UserEntityBuilder"/>.
         /// </summary>
-        /// <param name="entityBuilder"></param>
+        /// <param name="entityBuilder">An instance of <see cref="EntityTypeBuilder{T}"/> where T is <see cref="ItemType"/>.</param>
         public ItemTypeEntityBuilder(EntityTypeBuilder<ItemType> entityBuilder)
         {
             // Entity seeds

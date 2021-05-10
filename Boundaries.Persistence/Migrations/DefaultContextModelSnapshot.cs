@@ -32,7 +32,10 @@ namespace Boundaries.Persistence.Migrations
                     b.Property<decimal>("DiscountAmount")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<decimal>("TotalAmount")
+                    b.Property<decimal>("TotalGrossAmount")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("TotalNetAmount")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("UserId")
@@ -47,13 +50,23 @@ namespace Boundaries.Persistence.Migrations
 
             modelBuilder.Entity("Core.Entities.BillDiscount", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("BillId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOnUtc")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("DiscountId")
                         .HasColumnType("int");
 
-                    b.HasKey("BillId", "DiscountId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("BillId");
 
                     b.HasIndex("DiscountId");
 
@@ -62,8 +75,16 @@ namespace Boundaries.Persistence.Migrations
 
             modelBuilder.Entity("Core.Entities.BillItem", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("BillId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOnUtc")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
@@ -74,10 +95,15 @@ namespace Boundaries.Persistence.Migrations
                     b.Property<decimal>("SubTotalAmount")
                         .HasColumnType("decimal(10,2)");
 
+                    b.Property<decimal>("SubTotalDiscount")
+                        .HasColumnType("decimal(10,2)");
+
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(10,2)");
 
-                    b.HasKey("BillId", "ItemId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("BillId");
 
                     b.HasIndex("ItemId");
 
@@ -121,32 +147,42 @@ namespace Boundaries.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 18, 10, 1, 566, DateTimeKind.Local).AddTicks(5512),
+                            CreatedOnUtc = new DateTime(2021, 5, 9, 22, 30, 48, 265, DateTimeKind.Local).AddTicks(690),
                             Description = "10% de descuento para clientes afiliados",
                             DiscountType = 1,
                             DiscountTypeId = 1,
                             DiscountValue = 10.00m,
-                            Name = "10% Afiliados"
+                            Name = "10%"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 18, 10, 1, 567, DateTimeKind.Local).AddTicks(3355),
+                            CreatedOnUtc = new DateTime(2021, 5, 9, 22, 30, 48, 265, DateTimeKind.Local).AddTicks(8081),
                             Description = "30% de descuento para empleados",
                             DiscountType = 1,
                             DiscountTypeId = 1,
                             DiscountValue = 30.00m,
-                            Name = "30% Empleados"
+                            Name = "30%"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 18, 10, 1, 567, DateTimeKind.Local).AddTicks(3367),
-                            Description = "10% de descuento para clientes afiliados",
+                            CreatedOnUtc = new DateTime(2021, 5, 9, 22, 30, 48, 265, DateTimeKind.Local).AddTicks(8096),
+                            Description = "5% de descuento para clientes con más de 2 años en la tienda",
                             DiscountType = 1,
                             DiscountTypeId = 1,
-                            DiscountValue = 10.00m,
-                            Name = "5% 2 años con nosotros"
+                            DiscountValue = 5.00m,
+                            Name = "5%"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOnUtc = new DateTime(2021, 5, 9, 22, 30, 48, 265, DateTimeKind.Local).AddTicks(8099),
+                            Description = "$5 dólares por cada $100 dólares en compras",
+                            DiscountType = 2,
+                            DiscountTypeId = 2,
+                            DiscountValue = 5.00m,
+                            Name = "$5"
                         });
                 });
 
@@ -181,7 +217,7 @@ namespace Boundaries.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 559, DateTimeKind.Utc).AddTicks(8398),
+                            CreatedOnUtc = new DateTime(2021, 5, 10, 2, 30, 48, 258, DateTimeKind.Utc).AddTicks(209),
                             Name = "Manzana",
                             TypeId = 1,
                             UnitPrice = 24.99m
@@ -189,7 +225,7 @@ namespace Boundaries.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 559, DateTimeKind.Utc).AddTicks(8465),
+                            CreatedOnUtc = new DateTime(2021, 5, 10, 2, 30, 48, 258, DateTimeKind.Utc).AddTicks(300),
                             Name = "Pantalon",
                             TypeId = 3,
                             UnitPrice = 299.99m
@@ -197,7 +233,7 @@ namespace Boundaries.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 559, DateTimeKind.Utc).AddTicks(8468),
+                            CreatedOnUtc = new DateTime(2021, 5, 10, 2, 30, 48, 258, DateTimeKind.Utc).AddTicks(303),
                             Name = "Mistolin",
                             TypeId = 2,
                             UnitPrice = 84.99m
@@ -227,19 +263,19 @@ namespace Boundaries.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 558, DateTimeKind.Utc).AddTicks(953),
+                            CreatedOnUtc = new DateTime(2021, 5, 10, 2, 30, 48, 255, DateTimeKind.Utc).AddTicks(8330),
                             Name = "Comestible"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 558, DateTimeKind.Utc).AddTicks(1015),
+                            CreatedOnUtc = new DateTime(2021, 5, 10, 2, 30, 48, 255, DateTimeKind.Utc).AddTicks(8395),
                             Name = "Limpieza"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 558, DateTimeKind.Utc).AddTicks(1016),
+                            CreatedOnUtc = new DateTime(2021, 5, 10, 2, 30, 48, 255, DateTimeKind.Utc).AddTicks(8398),
                             Name = "Ropa"
                         });
                 });
@@ -276,8 +312,8 @@ namespace Boundaries.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            AffiliatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 548, DateTimeKind.Utc).AddTicks(7018),
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 548, DateTimeKind.Utc).AddTicks(7670),
+                            AffiliatedOnUtc = new DateTime(2021, 5, 10, 2, 30, 48, 245, DateTimeKind.Utc).AddTicks(8173),
+                            CreatedOnUtc = new DateTime(2021, 5, 10, 2, 30, 48, 245, DateTimeKind.Utc).AddTicks(8864),
                             IsAffiliated = true,
                             IsEmployee = false,
                             Name = "Juan Pérez"
@@ -285,8 +321,8 @@ namespace Boundaries.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            AffiliatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 548, DateTimeKind.Utc).AddTicks(8217),
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 548, DateTimeKind.Utc).AddTicks(8229),
+                            AffiliatedOnUtc = new DateTime(2018, 5, 10, 2, 30, 48, 245, DateTimeKind.Utc).AddTicks(9482),
+                            CreatedOnUtc = new DateTime(2018, 5, 10, 2, 30, 48, 245, DateTimeKind.Utc).AddTicks(9587),
                             IsAffiliated = true,
                             IsEmployee = true,
                             Name = "María Magdalena"
@@ -294,11 +330,18 @@ namespace Boundaries.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            AffiliatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 548, DateTimeKind.Utc).AddTicks(8237),
-                            CreatedOnUtc = new DateTime(2021, 5, 8, 22, 10, 1, 548, DateTimeKind.Utc).AddTicks(8238),
+                            CreatedOnUtc = new DateTime(2021, 5, 10, 2, 30, 48, 245, DateTimeKind.Utc).AddTicks(9602),
                             IsAffiliated = false,
                             IsEmployee = false,
                             Name = "Pedro Almonte"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOnUtc = new DateTime(2021, 5, 10, 2, 30, 48, 245, DateTimeKind.Utc).AddTicks(9604),
+                            IsAffiliated = false,
+                            IsEmployee = true,
+                            Name = "Rosa Zapata"
                         });
                 });
 
@@ -313,14 +356,14 @@ namespace Boundaries.Persistence.Migrations
 
             modelBuilder.Entity("Core.Entities.BillDiscount", b =>
                 {
-                    b.HasOne("Core.Entities.Discount", "Discount")
-                        .WithMany("Bills")
+                    b.HasOne("Core.Entities.Bill", "Bill")
+                        .WithMany("Discounts")
                         .HasForeignKey("BillId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.Bill", "Bill")
-                        .WithMany("Discounts")
+                    b.HasOne("Core.Entities.Discount", "Discount")
+                        .WithMany("Bills")
                         .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -328,14 +371,14 @@ namespace Boundaries.Persistence.Migrations
 
             modelBuilder.Entity("Core.Entities.BillItem", b =>
                 {
-                    b.HasOne("Core.Entities.Item", "Item")
-                        .WithMany("Bills")
+                    b.HasOne("Core.Entities.Bill", "Bill")
+                        .WithMany("Items")
                         .HasForeignKey("BillId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.Bill", "Bill")
-                        .WithMany("Items")
+                    b.HasOne("Core.Entities.Item", "Item")
+                        .WithMany("Bills")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
