@@ -51,6 +51,7 @@ namespace ShopsRUs.API
                 });
             services.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
             services.AddAutoMapper(typeof(Startup));
+            services.AddMvc();
 
             ConfigureDbContext(services);
             ConfigureSwagger(services);
@@ -67,10 +68,10 @@ namespace ShopsRUs.API
         {
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("V1", new OpenApiInfo
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "ShopsRUs API",
-                    Version = "V1",
+                    Version = "v1",
                     Description = "RESTful API that provides the ability to calculate discounts, generate total costs and generate invoices for ShopsRUs customers.",
                     Contact = new OpenApiContact
                     {
@@ -118,6 +119,7 @@ namespace ShopsRUs.API
             app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopsRUs API V1"); });
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
 
